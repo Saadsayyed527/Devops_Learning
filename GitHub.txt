@@ -1,0 +1,149 @@
+🧠 GITHUB THEORY (DETAILED EXPLANATION)
+📌 What is GitHub?
+GitHub is a web-based platform that uses Git for version control and provides a cloud-based hosting service to manage Git repositories. It helps developers collaborate, track issues, and review code.
+
+🔁 GitHub vs Git
+Feature	Git	GitHub
+What it is	Version Control Tool	Git repository hosting service
+Use case	Track code changes	Collaborate online with others
+Works Offline	Yes	No (needs internet)
+Command-line	Yes	Mostly web-based (also CLI available)
+Maintains Code	Locally	Remotely (on cloud)
+
+💡 Why GitHub is Important for Freshers
+Allows easy collaboration.
+
+Helps in maintaining project history.
+
+Supports pull requests, code reviews, and issue tracking.
+
+Provides a platform to showcase projects (important for portfolio).
+
+Used in nearly every software company today.
+
+🗂️ Key GitHub Concepts
+1. Repository (Repo):
+A place where project files and revision history are stored.
+
+Public repo – Anyone can see it.
+
+Private repo – Only invited users can access it.
+
+2. Fork:
+A personal copy of someone else's repository. Used to suggest changes or build on someone’s work.
+
+3. Pull Request (PR):
+A request to merge code from your branch/repo to another branch/repo. Reviewed and approved by project maintainers.
+
+4. Clone:
+Copy a GitHub repository to your local system.
+
+bash
+Copy code
+git clone https://github.com/username/repo-name.git
+5. Push:
+Send your committed changes from local to GitHub.
+
+bash
+Copy code
+git push origin branch-name
+6. Issues:
+Used to report bugs, suggest features, or ask questions.
+
+7. Actions:
+GitHub's CI/CD tool. Automatically builds, tests, and deploys code.
+
+8. README.md:
+Markdown file usually at the root of the repo to explain what the project does and how to use it.
+
+9. .gitignore:
+Specifies files Git should ignore (log files, node_modules, etc.)
+
+🔧 IMPORTANT GITHUB COMMANDS
+Most GitHub actions use Git commands + remote.
+
+Command	Description
+git clone <url>	Clones a remote GitHub repo locally
+git remote add origin <url>	Links your local repo to GitHub
+git remote -v	Shows remote repo URLs
+git push -u origin main	Pushes the local code to GitHub
+git pull origin main	Pulls changes from GitHub to local
+git fetch	Fetches updates from GitHub without merging
+git push origin --delete branch_name	Deletes remote branch
+gh (GitHub CLI)	GitHub command-line tool for PRs, issues, etc.
+
+❓ FREQUENTLY ASKED GITHUB INTERVIEW QUESTIONS (WITH ANSWERS)
+1. What is GitHub?
+GitHub is a cloud-based platform for hosting and sharing Git repositories. It allows for collaborative development, code review, and version tracking.
+
+2. What is the difference between Git and GitHub?
+Git is the tool that tracks code changes.
+
+GitHub is a hosting service for Git repositories.
+
+3. What is a Pull Request?
+A pull request is a way to propose changes to a codebase. It's commonly used in team projects to review code before merging into the main branch.
+
+4. What is forking a repository?
+Forking creates a personal copy of someone else's repository so you can make changes independently. Often used in open-source contributions.
+
+5. How do you contribute to an open-source project on GitHub?
+Steps:
+
+Fork the repository.
+
+Clone it locally.
+
+Create a new branch.
+
+Make changes and commit.
+
+Push the branch to your fork.
+
+Open a pull request.
+
+6. How do you resolve conflicts in a pull request?
+If GitHub shows conflicts in a PR:
+
+Pull the latest branch locally.
+
+Merge and resolve conflicts.
+
+Push the resolved branch again.
+
+7. How do you secure a GitHub repository?
+Set it to private.
+
+Add collaborators with role-based access.
+
+Use branch protection rules.
+
+Enable 2FA and signed commits.
+
+8. What are GitHub Actions?
+GitHub Actions is GitHub's CI/CD platform. It allows you to automate build, test, and deployment workflows.
+
+9. How to undo a push on GitHub?
+git reset locally.
+
+git push --force to update GitHub repo (⚠️ use with caution).
+
+10. How do you create a GitHub repo from scratch?
+Steps:
+
+On GitHub, click “New Repository”.
+
+Initialize with README (optional).
+
+Clone repo locally:
+
+bash
+Copy code
+git clone https://github.com/username/repo-name.git
+Add files, commit, and push:
+
+bash
+Copy code
+git add .
+git commit -m "Initial commit"
+git push origin main

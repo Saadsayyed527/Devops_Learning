@@ -1,0 +1,127 @@
+✅ GIT THEORY (For Interview)
+1. What is Git?
+Git is a distributed version control system (VCS) that helps multiple developers work on the same project without interfering with each other's work. Every developer has a local copy (repository) of the entire project, and changes are merged efficiently.
+
+2. Why Use Git?
+Tracks changes in source code.
+
+Allows collaboration.
+
+Keeps history (rollback, revert).
+
+Supports branching and merging.
+
+Works offline (local repo).
+
+3. Git vs. GitHub
+Feature	Git	GitHub
+Type	Tool (VCS)	Hosting service for Git repos
+Works Offline	Yes	No
+Access	Local	Online (cloud-based)
+Usage	Tracking code changes	Sharing and collaborating
+
+4. What is a repository?
+A repository is a directory where Git stores all project files and the history of changes.
+
+Local repo: On your system.
+
+Remote repo: On GitHub/GitLab/Bitbucket.
+
+5. What is a branch?
+A branch is a copy of the codebase where you can make changes without affecting the main code (usually main or master).
+
+Default branch: main or master
+
+Developers often use feature, bugfix, or test branches.
+
+6. Git Lifecycle
+Working Directory – Actual files you're working on.
+
+Staging Area (Index) – Files marked for commit.
+
+Local Repository – Commits saved here.
+
+Remote Repository – Shared repo (like on GitHub).
+
+📌 COMMONLY ASKED GIT COMMANDS (With Explanation)
+Command	Description
+git init	Initializes a new Git repo in current directory
+git clone <url>	Copies (clones) a remote repository to your local machine
+git status	Shows current status of working directory and staging area
+git add <file>	Adds file to staging area
+git add .	Adds all modified and new files to staging area
+git commit -m "message"	Commits staged changes with a message
+git log	Shows commit history
+git diff	Shows changes not yet staged or committed
+git branch	Lists all branches
+git branch <name>	Creates a new branch
+git checkout <branch>	Switches to another branch
+git merge <branch>	Merges specified branch into current branch
+git pull	Fetches and merges changes from remote to local
+git push	Pushes committed changes from local to remote
+git remote -v	Shows the remote repo's URL
+git rm <file>	Removes a file from staging and working directory
+git reset <file>	Removes file from staging area (not from working directory)
+git stash	Temporarily shelves changes so you can work on something else
+git stash pop	Applies last stashed changes back to working directory
+
+🎯 GIT INTERVIEW QUESTIONS FOR FRESHERS (With Answers)
+1. What is the difference between Git and SVN?
+Git is distributed, SVN is centralized.
+
+Git is faster and can work offline.
+
+Git supports multiple branches better than SVN.
+
+2. What is the difference between git pull and git fetch?
+git fetch downloads the latest changes but does not merge them.
+
+git pull = git fetch + git merge → downloads and merges changes.
+
+3. How do you resolve merge conflicts in Git?
+When two branches change the same part of a file, Git can't decide which to keep.
+
+Manually edit the conflict markers (<<<<<<<, =======, >>>>>>>), then:
+
+bash
+Copy code
+git add <resolved_file>
+git commit -m "Resolved conflict"
+4. What is the HEAD in Git?
+HEAD is a pointer that refers to the latest commit on the current branch.
+
+5. What is a detached HEAD?
+When you check out a commit directly (not a branch), Git enters a detached HEAD state. You’re no longer on a branch.
+
+6. Explain Staging and Commit.
+Staging (git add): Prepares files for commit.
+
+Commit (git commit): Saves changes to the local repo.
+
+7. What are tags in Git?
+Tags are used to mark specific points in history, usually for releases.
+
+bash
+Copy code
+git tag v1.0
+git push origin v1.0
+8. Can you delete a branch in Git?
+Yes:
+
+Local: git branch -d branch_name
+
+Remote: git push origin --delete branch_name
+
+9. What is .gitignore?
+A file where you list filenames/directories Git should ignore (not track), like:
+
+bash
+Copy code
+node_modules/
+*.log
+.env
+10. How can you revert a commit?
+git revert <commit> – Creates a new commit that undoes changes.
+
+git reset --hard <commit> – Resets repo to a previous state (dangerous).
+
