@@ -1,0 +1,421 @@
+💡 What is Jenkins?
+Jenkins is an open-source automation server written in Java. It helps automate parts of the software development process, especially building, testing, and deploying code. Jenkins is widely used in Continuous Integration/Continuous Delivery (CI/CD) pipelines.
+
+📜 Jenkins: Theory and Core Concepts
+1. Purpose
+Jenkins automates:
+
+Code integration
+
+Building projects
+
+Running tests
+
+Deployment to servers
+
+Monitoring executions
+
+It aims to catch bugs early and streamline software delivery.
+
+2. Core Concepts
+Concept	Description
+Job/Project	A runnable task (e.g., a build job). Types: Freestyle, Pipeline, etc.
+Build	A single execution of a Job.
+Node/Agent	A machine Jenkins runs tasks on (besides the main server).
+Master (Controller)	The main Jenkins server controlling jobs and distributing tasks to agents.
+Workspace	The directory on a node where Jenkins executes jobs.
+Executor	A slot for running a build on a node.
+Pipeline	A series of automated steps defined using code (usually in Jenkinsfile).
+
+🔧 Jenkins Architecture
+lua
+Copy code
+              +--------------------+
+              |  Jenkins Controller|
+              +--------+-----------+
+                       |
+              +--------+-----------+
+              |                    |
+     +--------+--------+  +--------+--------+
+     |  Build Agent 1   |  |  Build Agent 2   |
+     +------------------+  +------------------+
+
+ Controller: Schedules jobs, manages UI, maintains config.
+ Agent: Executes jobs on behalf of controller.
+🧱 Types of Jenkins Projects
+Freestyle Project
+
+Simplest job type.
+
+GUI-based configuration.
+
+Good for basic automation (build/test).
+
+Pipeline
+
+Defined as code (Jenkinsfile).
+
+Supports complex workflows and branching.
+
+Two types:
+
+Declarative Pipeline: Structured syntax.
+
+Scripted Pipeline: Groovy-based, more flexible.
+
+Multibranch Pipeline
+
+Automatically creates a pipeline for each branch in a repo.
+
+Ideal for GitHub/GitLab integrations.
+
+Folder
+
+Organize jobs hierarchically.
+
+Matrix Project
+
+Run jobs in parallel with different configurations (e.g., OS, JDK).
+
+🧰 Jenkins Installation on Linux (Ubuntu/Debian)
+Step 1: Install Java
+bash
+Copy code
+sudo apt update
+sudo apt install openjdk-11-jdk -y
+java -version
+Step 2: Add Jenkins Repo
+bash
+Copy code
+wget -q -O - https://pkg.jenkins.io/debian/jenkins.io.key | sudo tee /usr/share/keyrings/jenkins-keyring.asc > /dev/null
+echo deb [signed-by=/usr/share/keyrings/jenkins-keyring.asc] https://pkg.jenkins.io/debian binary/ | sudo tee /etc/apt/sources.list.d/jenkins.list > /dev/null
+Step 3: Install Jenkins
+bash
+Copy code
+sudo apt update
+sudo apt install jenkins -y
+Step 4: Start Jenkins
+bash
+Copy code
+sudo systemctl start jenkins
+sudo systemctl enable jenkins
+Step 5: Access Jenkins
+Open browser: http://<your_ip>:8080
+
+Unlock with:
+
+bash
+Copy code
+sudo cat /var/lib/jenkins/secrets/initialAdminPassword
+🔌 Jenkins Plugins
+Jenkins is highly extensible via plugins. Plugins add support for:
+
+Category	Popular Plugins
+Source Control	Git, GitHub, Bitbucket, GitLab
+Build Tools	Maven, Gradle, Ant
+CI/CD	Pipeline, Blue Ocean, Build Monitor
+Notifications	Email, Slack, Discord, Telegram
+Cloud & VM	Docker, Kubernetes, AWS, Azure, GCP
+UI	Dashboard View, Dark Theme, Folders
+Security	Role-based Authorization, LDAP
+Test Reporting	JUnit, TestNG, Cucumber, Allure
+
+How to Install a Plugin
+Go to: Manage Jenkins > Manage Plugins
+
+Search plugin name
+
+Click Install without restart
+
+🧾 Jenkinsfile – Pipeline as Code
+Example Declarative Pipeline:
+
+groovy
+Copy code
+pipeline {
+    agent any
+    stages {
+        stage('Build') {
+            steps {
+                echo 'Building...'
+                sh './build.sh'
+            }
+        }
+        stage('Test') {
+            steps {
+                echo 'Testing...'
+                sh './run_tests.sh'
+            }
+        }
+        stage('Deploy') {
+            steps {
+                echo 'Deploying...'
+                sh './deploy.sh'
+            }
+        }
+    }
+}
+📦 Jenkins Integration Examples
+GitHub → Webhooks to trigger builds on push.
+
+Docker → Build and push Docker images.
+
+Kubernetes → Run Jenkins on K8s, use pods as agents.
+
+Slack/Email → Notify on build status.
+
+🔐 Jenkins Security Best Practices
+Use Role-based Access Control (RBAC) plugin.
+
+Enforce HTTPS (use Nginx/Apache as a reverse proxy).
+
+Use Secrets management (credentials plugin).
+
+Disable anonymous access.
+
+📊 Jenkins Monitoring & Maintenance
+Monitor: Logs, Metrics, and Dashboard plugins.
+
+Backup: Copy /var/lib/jenkins regularly.
+
+Update: Jenkins core + plugins via the UI or CLI.
+
+⚙️ Jenkins CLI & REST API
+CLI Example:
+bash
+Copy code
+java -jar jenkins-cli.jar -s http://localhost:8080/ help
+API Example:
+bash
+Copy code
+curl http://localhost:8080/api/json
+🔁 CI/CD Workflow with Jenkins
+text
+Copy code
+Code Commit -> Jenkins Poll/Webhook ->
+  Checkout Repo ->
+    Build -> Test -> Deploy ->
+      Notify (Slack, Email)
+🧠 Advanced Topics
+Distributed Builds: Jenkins master with multiple agents.
+
+Parallel Execution: In pipelines for faster builds.
+
+Parameterized Jobs: Let users choose build parameters.
+
+Post-build Actions: Publish reports, archive artifacts, trigger other jobs.
+
+✅ When to Use Jenkins
+Large teams needing automated CI/CD pipelines.
+
+Projects requiring custom build/test/deploy sequences.
+
+Need for plugin flexibility and control.
+
+🔁 BUILD TRIGGERS IN JENKINS
+Trigger Type	Description
+Manual	Build when user clicks "Build Now"
+Poll SCM	Jenkins checks Git for changes (not real-time)
+Webhook (Push Trigger)	GitHub notifies Jenkins on each commit
+Scheduled	Run at fixed intervals (CRON)
+After other job	Trigger when another job finishes
+
+
+
+questions  
+**Jenkins Interview Questions and Answers**
+
+---
+
+### Basic Jenkins Interview Questions
+
+**1. What is Jenkins?**
+Jenkins is an open-source automation server used for Continuous Integration and Continuous Delivery (CI/CD). It helps automate building, testing, and deploying software.
+
+**2. What are the main features of Jenkins?**
+
+* Open-source and free
+* Easy installation and configuration
+* Large plugin ecosystem
+* Supports distributed builds
+* Integrates with many tools like Git, Maven, Docker
+
+**3. What is the difference between Jenkins and other CI tools like GitLab CI or Travis CI?**
+Jenkins is self-hosted, highly customizable with plugins, and language-agnostic. GitLab CI and Travis CI are more tightly integrated with Git hosting platforms.
+
+**4. What is a Jenkins job?**
+A Jenkins job is a task or set of tasks configured in Jenkins, like building code, running tests, or deploying applications.
+
+**5. What are the types of Jenkins jobs?**
+
+* Freestyle Project
+* Pipeline
+* Multi-configuration project
+* Multi-branch pipeline
+* Folder
+
+**6. What are the default ports used by Jenkins?**
+By default, Jenkins runs on port **8080**.
+
+**7. What are plugins in Jenkins? Name a few commonly used plugins.**
+Plugins extend Jenkins' functionality. Common plugins include:
+
+* Git Plugin
+* Pipeline Plugin
+* Blue Ocean
+* Docker Plugin
+* Slack Notification Plugin
+
+**8. What is a Jenkinsfile?**
+A Jenkinsfile is a text file that contains the definition of a Jenkins Pipeline and is stored in the source control repository.
+
+**9. How does Jenkins integrate with version control systems like Git?**
+Using the Git plugin, Jenkins can pull code from a Git repository, either periodically or via webhooks.
+
+**10. How do you trigger a Jenkins job automatically?**
+
+* Using SCM webhooks (e.g., GitHub/GitLab)
+* Poll SCM
+* Trigger builds remotely via URL
+* Using other job’s post-build actions
+
+---
+
+### Intermediate Jenkins Interview Questions
+
+**11. What is the difference between a freestyle project and a pipeline in Jenkins?**
+
+* **Freestyle Project**: Simple UI-based configuration, less flexible
+* **Pipeline**: Code-defined CI/CD process with more control, scalability, and versioning
+
+**12. How do you secure Jenkins?**
+
+* Use authentication (LDAP, built-in, etc.)
+* Use authorization strategies (matrix-based, role-based)
+* Enable HTTPS
+* Restrict job permissions
+* Keep Jenkins and plugins updated
+
+**13. How do you create and use credentials in Jenkins?**
+Go to **Manage Jenkins > Credentials**, add credentials, and use them in jobs using the `credentialsId` in pipeline scripts or plugins.
+
+**14. How does Jenkins handle build failures?**
+
+* Marks the build as failed or unstable
+* Sends notifications (email, Slack)
+* Allows build retries
+* Provides console output and logs for debugging
+
+**15. How do you pass parameters to a Jenkins job?**
+Use **Parameterized Builds** and define parameters like string, choice, or boolean in the job configuration.
+
+**16. What are the differences between declarative and scripted pipelines?**
+
+* **Declarative**: Simpler, structured syntax with predefined blocks
+* **Scripted**: More flexible, uses Groovy, better for complex logic
+
+**17. Explain how Jenkins handles parallel execution.**
+Using the `parallel` block in a pipeline, Jenkins can run multiple stages or branches of a job simultaneously.
+
+**18. How do you archive artifacts in Jenkins?**
+Use `archiveArtifacts` step in pipeline or post-build actions in freestyle to save build outputs.
+
+**19. How do you back up Jenkins configuration?**
+
+* Copy the `$JENKINS_HOME` directory
+* Use plugins like ThinBackup or Backup Plugin
+
+**20. What is the Jenkins workspace?**
+It is the directory where Jenkins stores files related to a specific job during a build.
+
+---
+
+### Advanced Jenkins Interview Questions
+
+**21. What is the purpose of the `agent` directive in Jenkins Pipeline?**
+It defines where the pipeline or stage runs (e.g., any node, specific label, Docker container).
+
+**22. How do you implement approval gates in a Jenkins pipeline?**
+Use the `input` step in a declarative pipeline to pause execution and wait for manual approval.
+
+**23. How do you set up distributed builds in Jenkins using master-agent architecture?**
+
+* Configure agents via SSH or JNLP
+* Label nodes for specific tasks
+* Use `agent` directive in pipelines to run builds on agents
+
+**24. How can you integrate Jenkins with Docker?**
+
+* Use Docker plugin to run builds inside containers
+* Use Docker agents in Jenkinsfiles
+* Build and push Docker images from pipelines
+
+**25. How can Jenkins be integrated with Kubernetes for dynamic agent provisioning?**
+
+* Use the Kubernetes plugin
+* Define pod templates in Jenkins
+* Pipelines can request pods dynamically to run jobs
+
+**26. What is Blue Ocean in Jenkins?**
+A modern, user-friendly UI for Jenkins focused on visualizing pipelines and improving user experience.
+
+**27. How do you implement CI/CD with Jenkins?**
+
+* Set up pipeline stages: Build, Test, Deploy
+* Use SCM triggers to initiate pipeline
+* Use plugins for deployment, test reporting, and notifications
+
+**28. Explain how you would migrate Jenkins jobs from one server to another.**
+
+* Backup `$JENKINS_HOME/jobs` directory
+* Install same Jenkins version/plugins on new server
+* Restore job configs, credentials, and settings
+
+**29. How do you monitor Jenkins performance and logs?**
+
+* Monitor via system logs or `/var/log/jenkins/jenkins.log`
+* Use plugins like Monitoring, Prometheus, and Metrics
+* Check build queue and executor status
+
+**30. What are some best practices when writing Jenkins pipelines?**
+
+* Use shared libraries
+* Keep pipelines DRY
+* Use credentials securely
+* Use stages and parallelism wisely
+* Store Jenkinsfile in version control
+
+---
+
+### Scenario-Based Questions
+
+**31. If a build fails, how do you investigate and fix it in Jenkins?**
+
+* Check console output and error logs
+* Look into code or environment changes
+* Review test failures and artifacts
+* Re-run build after fixes
+
+**32. How would you roll back a deployment using Jenkins?**
+
+* Maintain tagged releases
+* Use deployment scripts with rollback support
+* Trigger rollback pipeline or job manually
+
+**33. How would you trigger a Jenkins job from a GitHub webhook?**
+
+* Enable webhooks in GitHub repo settings
+* Set up Jenkins with GitHub plugin
+* Use "GitHub hook trigger for GITScm polling" in job
+
+**34. How would you implement a multi-branch pipeline?**
+
+* Use the Multibranch Pipeline project type
+* Jenkins scans the repository for branches with Jenkinsfile
+* Automatically creates jobs per branch
+
+**35. How would you handle credentials securely in a Jenkins pipeline?**
+
+* Store secrets in Jenkins Credentials Manager
+* Use `withCredentials` block in pipeline scripts
+* Avoid printing secrets in logs
