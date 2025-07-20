@@ -1,0 +1,216 @@
+🔰 BASICS: What is Prometheus & Grafana?
+📘 Prometheus
+Definition: Prometheus is an open-source monitoring and alerting toolkit, mainly used for metrics-based monitoring.
+
+Key Features:
+
+Pull-based metrics collection via HTTP (not push).
+
+Uses its own query language: PromQL.
+
+Stores time-series data (metrics over time).
+
+Integrates easily with Kubernetes, Docker, etc.
+
+Use Case: Monitor CPU, memory, service health, DB queries, etc.
+
+📗 Grafana
+Definition: Grafana is an open-source visualization tool used for creating dashboards from time-series data (like from Prometheus).
+
+Key Features:
+
+Real-time dashboards.
+
+Alerts, annotations, plugins.
+
+Supports multiple data sources (Prometheus, Loki, MySQL, etc).
+
+Use Case: Visualize application health, infra usage, trends, etc.
+
+💻 INSTALLATION (Linux/Ubuntu based)
+🟢 Prometheus
+bash
+Copy
+Edit
+# Step 1: Download Prometheus
+wget https://github.com/prometheus/prometheus/releases/latest/download/prometheus-2.52.0.linux-amd64.tar.gz
+
+# Step 2: Extract
+tar xvf prometheus-2.52.0.linux-amd64.tar.gz
+cd prometheus-2.52.0.linux-amd64
+
+# Step 3: Run Prometheus
+./prometheus --config.file=prometheus.yml
+🟢 Grafana
+bash
+Copy
+Edit
+# Step 1: Add Grafana APT repository
+sudo apt-get install -y software-properties-common
+sudo add-apt-repository "deb https://packages.grafana.com/oss/deb stable main"
+
+# Step 2: Install Grafana
+sudo apt-get update
+sudo apt-get install grafana
+
+# Step 3: Start Grafana
+sudo systemctl start grafana-server
+sudo systemctl enable grafana-server
+📝 Access:
+
+Prometheus UI: http://localhost:9090
+
+Grafana UI: http://localhost:3000 (default user: admin / admin)
+
+🛠️ Prometheus Configuration (Basic)
+prometheus.yml
+
+yaml
+Copy
+Edit
+global:
+  scrape_interval: 15s
+
+scrape_configs:
+  - job_name: 'prometheus'
+    static_configs:
+      - targets: ['localhost:9090']
+To monitor your app (e.g., Node Exporter):
+
+yaml
+Copy
+Edit
+  - job_name: 'node'
+    static_configs:
+      - targets: ['localhost:9100']
+📊 Grafana Setup (Steps)
+Login to Grafana (admin/admin).
+
+Add Data Source → Select "Prometheus" → URL: http://localhost:9090.
+
+Create Dashboard → Add Panel → Use PromQL like:
+node_cpu_seconds_total, up, etc.
+
+Save the dashboard.
+
+🧠 COMMON PROMQL QUERIES
+Task	Query Example
+Check if instance is up	up
+CPU usage rate	rate(node_cpu_seconds_total[5m])
+Memory available	node_memory_MemAvailable_bytes
+Disk space usage	node_filesystem_avail_bytes
+
+🔔 Alerting Example (in prometheus.yml)
+yaml
+Copy
+Edit
+alerting:
+  alertmanagers:
+    - static_configs:
+        - targets: ['localhost:9093']
+
+rule_files:
+  - "alert.rules.yml"
+alert.rules.yml
+
+yaml
+Copy
+Edit
+groups:
+- name: example
+  rules:
+  - alert: InstanceDown
+    expr: up == 0
+    for: 1m
+    labels:
+      severity: critical
+    annotations:
+      summary: "Instance is down"
+🧪 BASIC INTERVIEW QUESTIONS
+🟨 Theory Questions
+What is Prometheus and how does it collect data?
+Prometheus scrapes metrics from targets via HTTP. It pulls data periodically and stores it as time-series.
+
+How does Prometheus differ from other tools like Nagios or Zabbix?
+It uses pull model, is better suited for cloud-native infra, and has powerful querying.
+
+What is PromQL? Give an example.
+PromQL is a query language for Prometheus. Example: rate(http_requests_total[5m])
+
+What is Grafana used for?
+To visualize and analyze metrics from data sources like Prometheus.
+
+What are exporters?
+Exporters are agents that expose metrics in Prometheus format (e.g., node_exporter, blackbox_exporter).
+
+What are Alert rules?
+Rules defined in Prometheus to evaluate expressions and trigger alerts.
+
+🟨 Practical / Coding / Command Based
+Start Prometheus from CLI:
+
+bash
+Copy
+Edit
+./prometheus --config.file=prometheus.yml
+Create a Grafana dashboard with a Prometheus data source.
+
+Show a PromQL to monitor CPU usage.
+
+promql
+Copy
+Edit
+rate(node_cpu_seconds_total{mode="user"}[5m])
+How to reload Prometheus config without restart:
+
+bash
+Copy
+Edit
+curl -X POST http://localhost:9090/-/reload
+📈 PROFITABILITY (Career-wise)
+High Demand: Prometheus + Grafana are core tools in DevOps/SRE toolchain.
+
+Used by: Google, Netflix, Uber, etc.
+
+Profitable Roles: DevOps Engineer, Site Reliability Engineer, Cloud Engineer.
+
+Certifications: CNCF Prometheus Certified Associate (PCA) is upcoming.
+
+📋 Template: Basic YAML for Prometheus
+yaml
+Copy
+Edit
+global:
+  scrape_interval: 15s
+
+scrape_configs:
+  - job_name: 'myapp'
+    static_configs:
+      - targets: ['localhost:8080']
+✅ FINAL TIPS
+Practice using PromQL.
+
+Learn how to set up alerts and dashboards in Grafana.
+
+Be able to explain why you monitor and what each metric means.
+
+Know the difference between logs vs metrics vs traces.
+
+Would you like a mock interview or some real-world use case examples next?
+
+
+
+
+
+
+
+
+
+Ask ChatGPT
+
+
+
+Tools
+
+
+
